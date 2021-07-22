@@ -3,6 +3,7 @@
 2. Open the project in Android Studio
 3. Build the gradle and run
 4. Here is an APK for quick check - https://www.dropbox.com/s/afdxfxi7smfiwmd/movie_discovery.apk?dl=0
+5. The TMDB API key file is in Utils/Constants file, you can replace it with your API key if you want by changing the value of  const val API_KEY = "3e5241861cd11e025d580d1f50cfec2e"
 
 
 # How To Use
