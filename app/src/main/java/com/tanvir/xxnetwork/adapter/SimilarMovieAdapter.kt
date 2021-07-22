@@ -50,6 +50,10 @@ class SimilarMovieAdapter(var context: Context, var moviesList: List<Movie>) : R
     }
 
     override fun getItemCount(): Int {
-        return moviesList.size
+        return if(moviesList.size > Constants.MAX_ITEM){
+            Constants.MAX_ITEM
+        } else {
+            moviesList.size;
+        }
     }
 }

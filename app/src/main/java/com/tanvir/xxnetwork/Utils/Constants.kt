@@ -16,6 +16,7 @@ class Constants {
         const val ImageBaseURLw500 = "https://image.tmdb.org/t/p/w500"
         const val DataBaseName = "FavoriteDB"
         const val GENRE = "Genre"
+        const val MAX_ITEM = 7
 
 
         @RequiresApi(Build.VERSION_CODES.M)

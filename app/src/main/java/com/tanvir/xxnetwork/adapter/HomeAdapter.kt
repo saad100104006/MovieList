@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
 import com.tanvir.xxnetwork.Utils.Constants
+import com.tanvir.xxnetwork.Utils.Constants.Companion.MAX_ITEM
 import com.tanvir.xxnetwork.databinding.HomeItemBinding
 import com.tanvir.xxnetwork.model.Movie
 import com.tanvir.xxnetwork.ui.fragments.HomeFragmentDirections
@@ -43,8 +44,8 @@ class HomeAdapter(var context: Context, var moviesList: List<Movie>) : RecyclerV
     }
 
     override fun getItemCount(): Int {
-        return if(moviesList.size > 7){
-            7 } else {
+        return if(moviesList.size > MAX_ITEM){
+            MAX_ITEM } else {
             moviesList.size;
         }
     }
