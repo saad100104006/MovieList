@@ -1,7 +1,5 @@
 package com.tanvir.xxnetwork.model
 
-import com.google.gson.JsonObject
-
 data class Movie(
     val poster_path:String,
     val overview:String,

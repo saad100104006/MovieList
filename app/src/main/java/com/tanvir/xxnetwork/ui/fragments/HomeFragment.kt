@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private var queryText = ""
     lateinit var queryMap: HashMap<String, String>
     private val searchSuggestions: ArrayList<SearchSuggestion> = ArrayList()
-    lateinit var popupMenu: PopupMenu 
+    lateinit var popupMenu: PopupMenu
     lateinit var genreMovieAdapter: GenreMovieAdapter
 
     var genres = Constants.getGenres()
@@ -42,11 +42,16 @@ class HomeFragment : Fragment() {
     var currentGenre: Int = 0
     var genreMovies: ArrayList<MovieGenre> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = HomeLayoutBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this@HomeFragment).get(MainViewModel::class.java)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         map["api_key"] = Constants.API_KEY
@@ -69,7 +74,8 @@ class HomeFragment : Fragment() {
                 viewModel.insertSearchSuggestion(searchSuggestion)
             }
 
-           val action: HomeFragmentDirections.ActionHome2ToSearch = HomeFragmentDirections.actionHome2ToSearch()
+            val action: HomeFragmentDirections.ActionHome2ToSearch =
+                HomeFragmentDirections.actionHome2ToSearch()
             action.queryText = queryText
             Navigation.findNavController(it).navigate(action)
         }
@@ -88,7 +94,8 @@ class HomeFragment : Fragment() {
                     viewModel.insertSearchSuggestion(searchSuggestion)
                 }
 
-                val action: HomeFragmentDirections.ActionHome2ToSearch = HomeFragmentDirections.actionHome2ToSearch()
+                val action: HomeFragmentDirections.ActionHome2ToSearch =
+                    HomeFragmentDirections.actionHome2ToSearch()
                 action.queryText = queryText
                 Navigation.findNavController(textView).navigate(action)
 
@@ -104,6 +111,7 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onStart() {
         super.onStart()
@@ -116,6 +124,7 @@ class HomeFragment : Fragment() {
             Toast.makeText(activity, "No Internet Connection", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun observeData() {
         viewModel.getSearchSuggestions().observe(viewLifecycleOwner, { suggestions ->
             searchSuggestions.clear()
@@ -162,6 +171,7 @@ class HomeFragment : Fragment() {
         })
 
     }
+
     private fun getMoviesList() {
         try {
             viewModel.getMovieByGenre(genres[currentGenre], 1)
@@ -178,10 +188,11 @@ class HomeFragment : Fragment() {
         }
         return false
     }
-        private fun setUpRecyclerViewsAndViewPager() {
-            genreMovieAdapter = GenreMovieAdapter(requireContext(), genreMovies)
-            binding.genreMoviesRecycler.layoutManager = LinearLayoutManager(requireContext())
-            binding.genreMoviesRecycler.adapter = genreMovieAdapter
+
+    private fun setUpRecyclerViewsAndViewPager() {
+        genreMovieAdapter = GenreMovieAdapter(requireContext(), genreMovies)
+        binding.genreMoviesRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.genreMoviesRecycler.adapter = genreMovieAdapter
 
     }
 
@@ -193,15 +204,10 @@ class HomeFragment : Fragment() {
         viewModel.getQueriedMovies(queryMap)
     }
 
-    fun <T> shuffle(list: MutableList<T>)
-    {
-        // start from the end of the list
-        for (i in list.size - 1 downTo 1)
-        {
-            // get a random index `j` such that `0 <= j <= i`
+    fun <T> shuffle(list: MutableList<T>) {
+        //create random genre each time
+        for (i in list.size - 1 downTo 1) {
             val j = Random.nextInt(i + 1)
-
-            // swap element at i'th position in the list with the element at j'th position
             val temp = list[i]
             list[i] = list[j]
             list[j] = temp

@@ -1,13 +1,11 @@
 package com.tanvir.xxnetwork.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 import com.tanvir.xxnetwork.Utils.Constants
 import com.tanvir.xxnetwork.databinding.HomeItemBinding
 import com.tanvir.xxnetwork.db.FavoriteMovie

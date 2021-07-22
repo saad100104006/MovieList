@@ -20,11 +20,6 @@ import java.util.*
 class SimilarMovieAdapter(var context: Context, var moviesList: List<Movie>) : RecyclerView.Adapter<SimilarMovieAdapter.SimilarViewHolder>() {
     lateinit var binding: HomeItemBinding
 
-    fun setMoviesList(moviesList: ArrayList<Movie>) {
-        this.moviesList = moviesList
-        notifyDataSetChanged()
-    }
-
     class SimilarViewHolder(binding: HomeItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val binding: HomeItemBinding = binding
     }

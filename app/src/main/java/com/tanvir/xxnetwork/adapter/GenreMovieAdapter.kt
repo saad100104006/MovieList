@@ -7,7 +7,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tanvir.xxnetwork.Utils.Constants
-import com.tanvir.xxnetwork.databinding.HomeItemBinding
 import com.tanvir.xxnetwork.databinding.ItemMovieGenreBinding
 import com.tanvir.xxnetwork.model.MovieGenre
 import com.tanvir.xxnetwork.ui.fragments.HomeFragmentDirections

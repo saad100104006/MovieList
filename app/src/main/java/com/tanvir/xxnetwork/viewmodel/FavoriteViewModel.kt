@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tanvir.xxnetwork.db.FavoriteMovie
 import com.tanvir.xxnetwork.repository.Repository
-import javax.inject.Inject
 
 class FavoriteViewModel : ViewModel {
     lateinit var repository: Repository

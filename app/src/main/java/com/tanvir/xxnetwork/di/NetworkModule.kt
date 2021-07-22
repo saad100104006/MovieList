@@ -22,6 +22,7 @@ class NetworkModule {
     @Singleton
     fun provideMovieApiService(): MovieApiService {
 
+        //add cache implementation
         val onlineInterceptor: Interceptor = Interceptor { chain ->
             val response: Response = chain.proceed(chain.request())
             val maxAge = 60 // read from cache for 60 seconds even if there is internet connection
