@@ -2,7 +2,7 @@
 1. Clone the master branch
 2. Open the project in Android Studio
 3. Build the gradle and run
-4. Here is an APK for quick check
+4. Here is an APK for quick check - https://www.dropbox.com/s/afdxfxi7smfiwmd/movie_discovery.apk?dl=0
 
 
 # How To Use
