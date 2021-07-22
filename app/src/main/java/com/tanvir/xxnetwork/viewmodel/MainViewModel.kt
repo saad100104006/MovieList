@@ -163,14 +163,6 @@ class MainViewModel  : ViewModel {
         repository.clearSearchSuggestion()
     }
 
-    fun getFavoriteMoviesList(): MutableLiveData<ArrayList<FavoriteMovie>> {
-        return favoriteMovies
-    }
-
-    fun clearWishList() {
-        repository.clearFavoriteList()
-    }
-
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

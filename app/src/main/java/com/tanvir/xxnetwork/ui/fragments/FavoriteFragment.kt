@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tanvir.xxnetwork.adapter.FavoriteAdapter
 import com.tanvir.xxnetwork.databinding.FavoriteLayoutBinding
 import com.tanvir.xxnetwork.db.FavoriteMovie
-import com.tanvir.xxnetwork.viewmodel.MainViewModel
+import com.tanvir.xxnetwork.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: FavoriteViewModel
     lateinit var binding: FavoriteLayoutBinding
     lateinit var adapter: FavoriteAdapter
     var moviesList: List<FavoriteMovie> = mutableListOf()
@@ -24,7 +24,7 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FavoriteLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this@FavoriteFragment).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this@FavoriteFragment).get(FavoriteViewModel::class.java)
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

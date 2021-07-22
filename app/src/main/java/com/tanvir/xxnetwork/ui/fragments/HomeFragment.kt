@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private var queryText = ""
     lateinit var queryMap: HashMap<String, String>
     private val searchSuggestions: ArrayList<SearchSuggestion> = ArrayList()
-    lateinit var popupMenu: PopupMenu;
+    lateinit var popupMenu: PopupMenu 
     lateinit var genreMovieAdapter: GenreMovieAdapter
 
     var genres = Constants.getGenres()
