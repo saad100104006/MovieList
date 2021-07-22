@@ -4,8 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.MutableLiveData
-import com.google.gson.JsonObject
 import com.tanvir.xxnetwork.Utils.Constants
 import com.tanvir.xxnetwork.db.FavoriteDao
 import com.tanvir.xxnetwork.model.Genre
@@ -16,14 +14,12 @@ import com.tanvir.xxnetwork.network.MovieApiService
 import com.tanvir.xxnetwork.repository.Repository
 import com.tanvir.xxnetwork.viewmodel.MainViewModel
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
 import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
@@ -35,38 +31,23 @@ class MovieDetailViewModelTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
-
     @get:Rule
     var rxJavaRule: TestRule = TestRxJavaRule()
-
     @Mock
-    private lateinit var api: MovieApiService
-
+    private lateinit var movieServiceApi: MovieApiService
     @Mock
-    private lateinit var dao: FavoriteDao
-
-    @Mock
-    lateinit var paymentMethodsResponseObservable: Observable<Movie>
-
-    private lateinit var repo: Repository
-
-    private lateinit var movie: Movie
-
-
-    private lateinit var movieGenre: MovieGenre
-
-    private lateinit var movieResponse: MovieResponse
-
-
-    @Mock
-    lateinit var observer: Observer<MutableLiveData<Movie>>
-
+    private lateinit var favoriteDao: FavoriteDao
     @Mock
     lateinit var lifecycleOwner: LifecycleOwner
+    private lateinit var repository: Repository
+    private lateinit var movie: Movie
+    private lateinit var movieGenre: MovieGenre
+    private lateinit var movieResponse: MovieResponse
     var lifecycle: Lifecycle? = null
-
     lateinit var viewModel: MainViewModel
-    var ids = 1
+    var id = 1
+    var vote_count = 50
+    var popularity = 7
 
 
     @Before
@@ -74,26 +55,26 @@ class MovieDetailViewModelTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         lifecycle = LifecycleRegistry(lifecycleOwner)
+        movieGenre = MovieGenre(1, "Action", 28, arrayListOf(), 10)
         movie = Movie(
-            "",
-            "",
-            "null",
-            "null",
-            "null",
-            ids,
-            1,
-            1,
-            1,
+            "/sample",
+            "sample overview",
+            "01-07-2020",
+            "Luca",
+            "/sample2",
+            id,
+            vote_count,
+            id,
+            popularity,
             1,
             arrayListOf(),
             arrayListOf(),
             arrayListOf()
         )
-        movieGenre = MovieGenre(1, "Action", 28, arrayListOf(), 10)
         movieResponse = MovieResponse(1, 1, 1, arrayListOf(movie))
 
-        repo = Repository(movieApiService = api, dao)
-        viewModel = MainViewModel(repo)
+        repository = Repository(movieApiService = movieServiceApi, favoriteDao)
+        viewModel = MainViewModel(repository)
     }
 
     @Test
@@ -102,10 +83,13 @@ class MovieDetailViewModelTest {
         val movieId = 28
         queryMap["api_key"] = Constants.API_KEY
         queryMap["page"] = "1"
-        `when`(api.getMovieDetails(movieId, queryMap)).thenReturn(Observable.just(movie))
+        `when`(movieServiceApi.getMovieDetails(movieId, queryMap)).thenReturn(Observable.just(movie))
         viewModel.getMovieDetails(movieId, queryMap)
         viewModel.getMovie().value.let {
-            assertTrue(it?.id == 1)
+            assertTrue(it?.id == id)
+            assertTrue(it?.title == "Luca")
+            assertTrue(it?.overview == "sample overview")
+            assertTrue(it?.poster_path == "/sample")
         }
 
     }
@@ -114,7 +98,7 @@ class MovieDetailViewModelTest {
     fun test_movies() {
         val genre = Genre(28, "Action")
         `when`(
-            api.getMovieByGenre(
+            movieServiceApi.getMovieByGenre(
                 Constants.API_KEY,
                 28,
                 1
@@ -123,19 +107,20 @@ class MovieDetailViewModelTest {
         viewModel.getMovieByGenre(genre, 1)
         viewModel.getGenreMovie().value.let {
             assertTrue(it?.genreName == "Action")
+            assertTrue(it?.genreId == 28)
         }
     }
 
     @Test
     fun test_similar_movies() {
         val queryMap: HashMap<String, String> = HashMap()
-        val movieId = 28
         queryMap["api_key"] = Constants.API_KEY
         queryMap["page"] = "1"
-        `when`(api.getSimilarMovies(1, 1, queryMap)).thenReturn(Observable.just(movieResponse))
+        `when`(movieServiceApi.getSimilarMovies(1, 1, queryMap)).thenReturn(Observable.just(movieResponse))
         viewModel.getSimilarMovies(1, 1, queryMap)
         viewModel.getMovieListSimilar().value.let {
-            assertTrue(it?.get(0)?.id == 1)
+            assertTrue(it?.get(0)?.id == id)
+            assertTrue(it?.get(0)?.title == "Luca")
         }
     }
 
