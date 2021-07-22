@@ -17,7 +17,7 @@ interface MovieApiService {
     fun getMovieDetails(@Path("movie_id") id: Int, @QueryMap queries: HashMap<String, String>): Observable<Movie>
 
     @GET("movie/{movie_id}/similar")
-    fun getCast(@Path("movie_id") id: Int, @Query("page") page:Int, @QueryMap queries: HashMap<String, String>): Observable<MovieResponse>
+    fun getSimilarMovies(@Path("movie_id") id: Int, @Query("page") page:Int, @QueryMap queries: HashMap<String, String>): Observable<MovieResponse>
 
     @GET("search/movie")
     fun getMoviesBySearch(@QueryMap queries: HashMap<String, String>): Observable<JsonObject>

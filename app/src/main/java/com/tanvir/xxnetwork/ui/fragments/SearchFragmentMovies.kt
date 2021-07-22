@@ -98,12 +98,12 @@ class SearchFragmentMovies : Fragment() {
     }
     private fun observeData() {
         viewModel.getQueriesMovies().observe(viewLifecycleOwner,
-                { movies ->
+            androidx.lifecycle.Observer<ArrayList<Movie>> { movies ->
 
-                    adapter.setMoviesList(
-                        movies
-                    )
-                })
+                adapter.setMoviesList(
+                    movies
+                )
+            })
         viewModel.getSearchSuggestions().observe(viewLifecycleOwner, { suggestions ->
             searchSuggestions.clear()
             searchSuggestions.addAll(suggestions)

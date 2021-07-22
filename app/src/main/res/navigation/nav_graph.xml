@@ -81,9 +81,9 @@
         android:id="@+id/similarMovies"
         android:name="com.tanvir.xxnetwork.ui.fragments.SimilarMoviesFragment"
         android:label="SimilarMovies">
-        <argument
-            android:name="movieId"
-            app:argType="integer" />
+    <argument
+        android:name="movieId"
+        app:argType="integer" />
         <action
             android:id="@+id/action_similarMovies_to_movieDetails"
             app:destination="@id/movieDetails" />

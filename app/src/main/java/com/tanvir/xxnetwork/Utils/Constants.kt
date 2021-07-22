@@ -21,10 +21,10 @@ class Constants {
         @RequiresApi(Build.VERSION_CODES.M)
         fun isNetworkAvailable(context: Context): Boolean {
             val mConnectivityManager =
-                    context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             // Test for connection
             val mCapabilities =
-                    mConnectivityManager.getNetworkCapabilities(mConnectivityManager.activeNetwork)
+                mConnectivityManager.getNetworkCapabilities(mConnectivityManager.activeNetwork)
 
             return mCapabilities != null &&
                     (mCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||

@@ -26,10 +26,10 @@ class MainViewModel  : ViewModel {
     lateinit var repository: Repository
     private val TAG = "HomeViewModel"
     private val queriesMovies: MutableLiveData<ArrayList<Movie>> =
-            MutableLiveData<ArrayList<Movie>>()
-    val similarMovieList: MutableLiveData<ArrayList<Movie>> = MutableLiveData<ArrayList<Movie>>()
-    val movieDetails: MutableLiveData<Movie> = MutableLiveData<Movie>()
-    val favoriteMovies: MutableLiveData<ArrayList<FavoriteMovie>> = MutableLiveData<ArrayList<FavoriteMovie>>()
+        MutableLiveData<ArrayList<Movie>>()
+     val similarMovieList: MutableLiveData<ArrayList<Movie>> = MutableLiveData<ArrayList<Movie>>()
+     val movieDetails: MutableLiveData<Movie> = MutableLiveData<Movie>()
+     val favoriteMovies: MutableLiveData<ArrayList<FavoriteMovie>> = MutableLiveData<ArrayList<FavoriteMovie>>()
     private val movieGenre: MutableLiveData<MovieGenre> = MutableLiveData<MovieGenre>()
     private val disposable = CompositeDisposable()
     private val similarMoviesTotalPages: MutableLiveData<Int> = MutableLiveData<Int>()
@@ -65,42 +65,42 @@ class MainViewModel  : ViewModel {
 
     fun getMovieByGenre(genre: Genre, page: Int) {
         repository.getMovieByGenre(genre.id, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<MovieGenre>() {
-                    override fun onNext(movie: MovieGenre) {
-                        movie.genreName = genre.name
-                        movie.genreId = genre.id
-                        movieGenre.value = movie
-                    }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : DisposableObserver<MovieGenre>() {
+                override fun onNext(movie: MovieGenre) {
+                    movie.genreName = genre.name
+                    movie.genreId = genre.id
+                    movieGenre.value = movie
+                }
 
-                    override fun onError(e: Throwable) {
+                override fun onError(e: Throwable) {
 
-                    }
+                }
 
-                    override fun onComplete() {
+                override fun onComplete() {
 
-                    }
+                }
 
-                })
+            })
     }
 
 
     fun getMovieDetails(movieId: Int, map: HashMap<String, String>) {
         disposable.add(repository.getMovieDetails(movieId, map)
-                .subscribeOn(Schedulers.io())
-                .map { movie ->
-                    val genreNames = ArrayList<String>()
-                    // MovieResponse gives list of genre(object) so we will map each id to it genre name here.a
-                    for (genre in movie.genres) {
-                        genreNames.add(genre.name)
-                    }
-                    movie.genre_names=genreNames
-                    movie
+            .subscribeOn(Schedulers.io())
+            .map { movie ->
+                val genreNames = ArrayList<String>()
+                // MovieResponse gives list of genre(object) so we will map each id to it genre name here.a
+                for (genre in movie.genres) {
+                    genreNames.add(genre.name)
                 }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result -> movieDetails.postValue(result) }
-                ) { error -> Log.e(TAG, "getMovieDetails: " + error.message) }
+                movie.genre_names=genreNames
+                movie
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ result -> movieDetails.postValue(result) }
+            ) { error -> Log.e(TAG, "getMovieDetails: " + error.message) }
         )
     }
 
@@ -121,18 +121,18 @@ class MainViewModel  : ViewModel {
 
     fun getQueriedMovies(map: HashMap<String, String>) {
         disposable.add(repository.getMoviesBySearch(map)
-                .subscribeOn(Schedulers.io())
-                .map(Function<JsonObject, ArrayList<Movie>?> { jsonObject ->
-                    val jsonArray = jsonObject.getAsJsonArray("results")
-                    Gson().fromJson(
-                            jsonArray.toString(),
-                            object : TypeToken<ArrayList<Movie?>?>() {}.type
-                    )
-                }
+            .subscribeOn(Schedulers.io())
+            .map(Function<JsonObject, ArrayList<Movie>?> { jsonObject ->
+                val jsonArray = jsonObject.getAsJsonArray("results")
+                Gson().fromJson(
+                    jsonArray.toString(),
+                    object : TypeToken<ArrayList<Movie?>?>() {}.type
                 )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result -> queriesMovies.postValue(result) }
-                ) { error -> Log.e(TAG, "getPopularMovies: " + error.message) }
+            }
+            )
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ result -> queriesMovies.postValue(result) }
+            ) { error -> Log.e(TAG, "getPopularMovies: " + error.message) }
         )
     }
 

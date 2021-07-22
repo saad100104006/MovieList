@@ -10,10 +10,8 @@ import com.tanvir.xxnetwork.network.MovieApiService
 import io.reactivex.rxjava3.core.Observable
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class Repository  {
-    val TAG = "Repository"
     lateinit var movieApiService: MovieApiService
     lateinit var favoriteDao: FavoriteDao
 
@@ -28,7 +26,7 @@ class Repository  {
     }
 
     fun getSimilarMovies(movieId: Int, page:Int, map: HashMap<String, String>): Observable<MovieResponse>{
-        return movieApiService.getCast(movieId, page, map)
+        return movieApiService.getSimilarMovies(movieId, page, map)
     }
 
     fun getMoviesBySearch(map: HashMap<String, String>): Observable<JsonObject> {
