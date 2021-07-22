@@ -17,11 +17,29 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         binding = ActivityBottomMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navController = Navigation.findNavController(this@MainActivity, R.id.fragment)
 
+        binding.smoothBar.onItemSelectedListener= object : OnItemSelectedListener {
+            override fun onItemSelect(pos: Int): Boolean {
+                when (pos) {
+                    0 -> {
+                        navController.navigate(R.id.home2)
+                        return true
+                    }
+                    1 -> {
+                        navController.navigate(R.id.favorite)
+                        return true
+                    }
+                }
+                return false
+            }
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater

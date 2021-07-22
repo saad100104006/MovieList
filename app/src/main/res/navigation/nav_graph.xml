@@ -8,6 +8,84 @@
         android:id="@+id/home2"
         android:name="com.tanvir.xxnetwork.ui.fragments.HomeFragment"
         android:label="Home">
-
+        <action
+            android:id="@+id/action_home2_to_movies"
+            app:destination="@id/movies"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_home2_to_movieDetails"
+            app:destination="@id/movieDetails" />
+        <action
+            android:id="@+id/action_home2_to_search"
+            app:destination="@id/searchMovies" />
+    </fragment>
+    <fragment
+        android:id="@+id/favorite"
+        android:name="com.tanvir.xxnetwork.ui.fragments.FavoriteFragment"
+        android:label="Favorite" >
+        <action
+            android:id="@+id/action_favorite_to_movieDetails"
+            app:destination="@id/movieDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchMovies"
+        android:name="com.tanvir.xxnetwork.ui.fragments.SearchFragmentMovies"
+        android:label="SearchMovies" >
+        <action
+            android:id="@+id/action_searchMovies_to_movieDetails"
+            app:destination="@id/movieDetails" />
+        <argument
+            android:name="queryText"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/movies"
+        android:name="com.tanvir.xxnetwork.ui.fragments.MoviesFragment"
+        android:label="Movies">
+        <argument
+            android:name="movieCategory"
+            android:defaultValue="Popular"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movies_to_movieDetails"
+            app:destination="@id/movieDetails" />
+        <argument
+            android:name="genreId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="genreName"
+            app:argType="string"
+            android:defaultValue="Genre" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetails"
+        android:name="com.tanvir.xxnetwork.ui.fragments.MovieDetailsFragment"
+        android:label="MovieDetails"
+        app:exitAnim="@android:anim/slide_out_right">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_movieDetails_self"
+            app:destination="@id/movieDetails" />
+        <action
+            android:id="@+id/action_movieDetails_to_movies"
+            app:destination="@id/movies" />
+        <action
+            android:id="@+id/action_movieDetails_to_similarMovies"
+            app:destination="@id/similarMovies" />
+    </fragment>
+    <fragment
+        android:id="@+id/similarMovies"
+        android:name="com.tanvir.xxnetwork.ui.fragments.SimilarMoviesFragment"
+        android:label="SimilarMovies">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_similarMovies_to_movieDetails"
+            app:destination="@id/movieDetails" />
     </fragment>
 </navigation>
