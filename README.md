@@ -1,3 +1,62 @@
+Modules:
+# Home
+
+A. Search:
+
+
+When a user taps on search bar, search history list should be shown (if available) with the ability to clear search history.
+Search results should be shown after user taps “Search” whether its a button or a keyboard done key.
+Clicking on a movie should take the user to “Movie Details” screen.
+
+
+B. Discover:
+
+
+This is where you list random movies categorized by genre (i.e. Drama, Comedy, etc.)
+Each item -movie- in the list should only show name and poster.
+Max value is 7 movies per genre.
+There should be “See All” button in each genre section.
+When a user taps “See All” button, show a new screen with all movies (name and poster) for this genre in an infinite scrolling.
+Tapping on a movie should take the user to “Movie Details” screen.
+
+# Movie Details
+
+A. Movie details:
+
+
+User can see the movie name, short description, rating and poster.
+User can add/remove the movie to/from watch list which will be accessible in “Watch List” screen.
+User should see an indicator showing if this movie is already added to the watch list.
+
+# Watch List
+
+List of all saved movies (name and poster) in an invite scrolling.
+Tapping on a movie should take the user to “Movie Details” screen.
+
+
+
+ Use offline storage (i.e. Room or Realm) for the watch list and search history.
+
+ Added unit tests.
+
+ Used MVVM and Rx.
+
+ Followed Dependency Injection best practices.
+
+ Implemented neat and elegant UI with good UX that fit nicely on different screens sizes
+
+ Handled loading, error and empty states.
+
+ Support Android versions starting from 27
+
+
+BONUS
+
+Use offline storage to cache the results in “Home” screen for offline loading.
+Use CI flow.
+
+
+
 # How To Install
 1. Clone the master branch
 2. Open the project in Android Studio
