@@ -35,7 +35,7 @@ Tapping on a movie should take the user to “Movie Details” screen.
 
 
 
- Use offline storage (i.e. Room or Realm) for the watch list and search history.
+ Used offline storage (Room) for the watch list and search history.
 
  Added unit tests.
 
